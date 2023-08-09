@@ -248,6 +248,8 @@ Resources:
             nvm install v12.7.0
             nvm use v12.7.0
 
+            mv aws-bootstrap-master app
+
             # Create log directory
             mkdir -p /home/ec2-user/app/logs
 
