@@ -211,6 +211,9 @@ Resources:
             00-install-cd-agent: 
               command: "./install auto"
               cwd: "/home/ec2-user/"
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT2M
     Properties:
       ImageId: !Ref EC2AMI
       InstanceType: !Ref EC2InstanceType
@@ -267,7 +270,6 @@ Resources:
 
           # Signal to CloudFormation that the instance is ready
           /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --region ${AWS::Region} --resource Instance 
-          
       Tags:
         - Key: Name
           Value: !Ref AWS::StackName
