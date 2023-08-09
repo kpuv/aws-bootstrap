@@ -191,10 +191,12 @@ Resources:
         - Ref: InstanceRole
   Instance:
     Type: AWS::EC2::Instance
+    DeletionPolicy: Retain
     CreationPolicy: 
       ResourceSignal:
-        Timeout: PT15M
+        Timeout: PT2M
         Count: 1
+    
     Metadata:
       AWS::CloudFormation::Init:
         config:
