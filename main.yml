@@ -194,7 +194,7 @@ Resources:
     DeletionPolicy: Retain
     CreationPolicy: 
       ResourceSignal:
-        Timeout: PT2M
+        Timeout: PT5M
         Count: 1
     
     Metadata:
@@ -204,6 +204,15 @@ Resources:
             yum:
               wget: []
               unzip: []
+              ruby: []
+          files:
+            /home/ec2-user/install: 
+              source: !Sub "https://aws-codedeploy-${AWS::Region}.s3.amazonaws.com/latest/install"
+              mode: "000755" # executable
+          commands:
+            00-install-cd-agent: 
+              command: "./install auto"
+              cwd: "/home/ec2-user/"
     Properties:
       ImageId: !Ref EC2AMI
       InstanceType: !Ref EC2InstanceType
@@ -237,12 +246,14 @@ Resources:
             . /home/ec2-user/.bashrc
 
             # Install NVM, NPM, Node.JS
-            nvm alias default v12.7.0
-            nvm install v12.7.0
-            nvm use v12.7.0
+            nvm alias default v18.17.0
+            nvm install v18.17.0
+            nvm use v18.17.0
 
-            pwd
-            ls -al
+            # Run server
+            cd app
+            npm install
+            npm start
           EOF
 
           chown ec2-user:ec2-user /tmp/install_script.sh && chmod a+x /tmp/install_script.sh
