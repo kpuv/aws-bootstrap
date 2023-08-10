@@ -246,14 +246,9 @@ Resources:
             . /home/ec2-user/.bashrc
 
             # Install NVM, NPM, Node.JS
-            nvm alias default v18.17.0
-            nvm install v18.17.0
-            nvm use v18.17.0
-
-            # Run server
-            cd app
-            npm install
-            npm start
+            nvm alias default v12.22.12
+            nvm install v12.22.12
+            nvm use v12.22.12
           EOF
 
           chown ec2-user:ec2-user /tmp/install_script.sh && chmod a+x /tmp/install_script.sh
